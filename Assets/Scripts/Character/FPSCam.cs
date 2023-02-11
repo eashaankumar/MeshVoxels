@@ -26,12 +26,23 @@ public class FPSCam : MonoBehaviour
     void Update()
     {
         delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
     }
 
     void FixedUpdate()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         transform.Rotate(Vector3.up * delta.x * m_xSensitivity * Time.fixedDeltaTime);
 
         pitch += delta.y * m_ySensitivity * Time.fixedDeltaTime;
